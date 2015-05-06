@@ -41,7 +41,7 @@ private class TypingBox
     if (typed.startsWith("  "))
     {
       typed = typed.substring(2);
-      cursor = typed.length();
+      cursor = constrain(cursor - 2, 0, typed.length());
     }
   }
 
