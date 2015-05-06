@@ -1,4 +1,5 @@
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 private class TypingGame
 {
@@ -99,7 +100,10 @@ private class TypingGame
     fill(255, 128, 0);
     text(typingBox.getTyped(), margin, 3*height/5 + textSize/2);
     popStyle();
-    rect(10 + textWidth(" ") * typingBox.getCursor(), 3*height/5 - textSize/4, 3, textSize);
+    // inspired by http://stackoverflow.com/a/16812721
+    char[] widthReference = new char[typingBox.getCursor()];
+    Arrays.fill(widthReference, ' ');
+    rect(10 + textWidth(new String(widthReference)), 3*height/5 - textSize/4, 3, textSize);
     textSize(textSize = 12);
     String time = "Time: " + floatFormatter.format(milliseconds/1000.0);
     text(time, width - textWidth(time) - margin, margin);
@@ -194,7 +198,7 @@ private class TypingGame
       if (lines[currentLine].equals(typingBox.getTyped()) && typingBox.cursorAtEnd())
       {
         indent = "";
-        while (typingBox.getTyped ().startsWith(indent + " "))
+        while (typingBox.getTyped().startsWith(indent + " "))
         {
           indent += " ";
         }
